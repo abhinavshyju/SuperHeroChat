@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hero Chat",
-  description: "Chat with super heros!",
+  description: "Chat with super heros",
 };
 
 export default function RootLayout({

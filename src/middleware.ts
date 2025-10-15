@@ -1,16 +1,12 @@
-import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { auth } from "./lib/auth";
+import getServerSession from "next-auth";
+import authConfig from "./config/auth.config";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-  console.log(process.env.NEXTAUTH_SECRET);
-
+  const session = await getServerSession(authConfig).auth();
   const { pathname } = req.nextUrl;
-
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -20,7 +16,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!token) {
+  if (!session) {
     const url = req.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);

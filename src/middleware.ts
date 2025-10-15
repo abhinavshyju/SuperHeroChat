@@ -3,20 +3,23 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const secret = process.env.NEXTAUTH_SECRET;
-  const token = await getToken({ req, secret });
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
   const { pathname } = req.nextUrl;
 
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname === "/" ||
     pathname === "/login"
   ) {
     return NextResponse.next();
   }
 
   if (!token) {
-    console.log(token);
     const url = req.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);

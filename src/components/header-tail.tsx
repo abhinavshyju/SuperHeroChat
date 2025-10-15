@@ -1,7 +1,5 @@
 import LoginButton from "./login-button";
-import authOptions from "@/config/auth.config";
 import Image from "next/image";
-import getServerSession from "next-auth";
 
 import {
   DropdownMenu,
@@ -11,9 +9,11 @@ import {
 } from "./ui/dropdown-menu";
 import LogoutButton from "./logout-button";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function HeaderTail() {
-  const session = await getServerSession(authOptions).auth();
+  const session = await getServerSession(authOptions);
   if (!session) {
     return (
       <div className="">

@@ -1,24 +1,17 @@
-import { initializeApp, cert, getApps, getApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
-import { FirestoreAdapter } from "@auth/firebase-adapter";
-import NextAuth from "next-auth";
-import authConfig from "@/config/auth.config";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import type {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
 
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || "{}");
+import { getServerSession } from "next-auth";
 
-const app =
-  getApps().length === 0
-    ? initializeApp({
-        credential: cert(serviceAccount),
-      })
-    : getApp();
-
-const firestore = getFirestore(app);
-
-export const { auth, handlers, signIn, signOut } = NextAuth({
-  adapter: FirestoreAdapter({ firestore }),
-  session: { strategy: "jwt" },
-  trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET,
-  ...authConfig,
-});
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions);
+}

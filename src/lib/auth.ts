@@ -4,18 +4,20 @@ import { FirestoreAdapter } from "@auth/firebase-adapter";
 import NextAuth from "next-auth";
 import authConfig from "@/config/auth.config";
 
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT!);
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || "{}");
 
-const app = !getApps().length
-  ? initializeApp({
-      credential: cert(serviceAccount),
-    })
-  : getApp();
+const app =
+  getApps().length === 0
+    ? initializeApp({
+        credential: cert(serviceAccount),
+      })
+    : getApp();
 
 const firestore = getFirestore(app);
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-  adapter: FirestoreAdapter(firestore),
+  adapter: FirestoreAdapter({ firestore }),
   session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
   ...authConfig,
 });

@@ -8,7 +8,6 @@ import { DefaultChatTransport } from "ai";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Separator } from "./ui/separator";
 import { MessageBubble } from "./message-bubble";
 
 type Hero = {

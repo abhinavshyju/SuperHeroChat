@@ -58,9 +58,9 @@ If no info is available, respond honorably, like:
 };
 export async function POST(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
-  const hero = await params;
+  const hero = await context.params;
 
   const { messages }: { messages: UIMessage[] } = await req.json();
   const result = streamText({

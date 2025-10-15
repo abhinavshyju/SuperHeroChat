@@ -1,9 +1,7 @@
 import { HeroList } from "@/components/hero-list";
 import LoginButton from "@/components/login-button";
-import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { Activity } from "lucide-react";
-import Link from "next/link";
 
 export default async function Home() {
   const session = await auth();

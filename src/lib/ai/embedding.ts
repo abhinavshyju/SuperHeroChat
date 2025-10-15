@@ -4,10 +4,6 @@ import { embed, embedMany } from "ai";
 
 const embeddingModel = google.embedding("gemini-embedding-001");
 
-console.log(
-  "Google AI Key:",
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY ? "Loaded" : "Missing "
-);
 const generateChunks = (
   input: string,
   chunkSize = 200,

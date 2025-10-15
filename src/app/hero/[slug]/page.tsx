@@ -2,9 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import { HEROES } from "@/components/hero-list";
 import { ArrowLeft } from "lucide-react";
 import ChatBot from "@/components/chat-bot";

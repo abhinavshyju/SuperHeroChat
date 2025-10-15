@@ -26,6 +26,7 @@ export default function LoadRagForm() {
         setMessage("Failed to load content. Try again.");
       }
     } catch (err) {
+      console.log(err);
       setMessage("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

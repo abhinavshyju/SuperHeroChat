@@ -18,6 +18,7 @@ const firestore = getFirestore(app);
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: FirestoreAdapter({ firestore }),
   session: { strategy: "jwt" },
+  trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
   ...authConfig,
 });

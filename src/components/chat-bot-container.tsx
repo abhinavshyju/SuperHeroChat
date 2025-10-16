@@ -5,7 +5,7 @@ import ChatBot from "./chat-bot";
 import { useSearchParams } from "next/navigation";
 import { HEROES } from "./hero-list";
 import { Button } from "./ui/button";
-import { createChat, HeroChat, listChats } from "@/lib/chat";
+import { createChat, listChats } from "@/lib/chat";
 import { ScrollArea } from "./ui/scroll-area";
 
 interface ChatBotProp {

@@ -3,12 +3,14 @@ import { ArrowLeft } from "lucide-react";
 import ChatBotContainer from "@/components/chat-bot-container";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import authOptions from "@/config/auth.config";
-import { getServerSession } from "next-auth";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 
 export default async function HeroChatPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
+  if (!session) {
+    return redirect("/");
+  }
   const email = session?.user.email;
   const q = query(collection(db, "users"), where("email", "==", email));
   const querySnapshot = await getDocs(q);

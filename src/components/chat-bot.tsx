@@ -71,8 +71,8 @@ export default function ChatBot({ hero, chatId, userId }: ChatBotProps) {
     const msg: Message = { role: "assistant", text, timestamp: Date.now() };
     setChats((prev) => [...prev, msg]);
     saveMessage(userId, chatId, msg).catch(console.error);
-
-    if (chats.length === 2) {
+    console.log(chats.length);
+    if (chats.length === 3) {
       updateTitle();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

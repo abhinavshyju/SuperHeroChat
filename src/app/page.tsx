@@ -1,11 +1,10 @@
 import { HeroList } from "@/components/hero-list";
 import LoginButton from "@/components/login-button";
-import authOptions from "@/config/auth.config";
+import { auth } from "@/lib/auth";
 import { Activity } from "lucide-react";
-import { getServerSession } from "next-auth";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     return (

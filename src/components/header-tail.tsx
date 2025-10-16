@@ -9,11 +9,11 @@ import {
 } from "./ui/dropdown-menu";
 import LogoutButton from "./logout-button";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
 import authOptions from "@/config/auth.config";
+import { auth } from "@/lib/auth";
 
 export default async function HeaderTail() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return (
       <div className="">

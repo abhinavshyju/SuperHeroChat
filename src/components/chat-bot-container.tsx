@@ -15,6 +15,7 @@ export default function ChatBotContainer({ userId }: ChatBotProp) {
   const searchParms = useSearchParams();
   const value = searchParms.get("hero");
   const hero = HEROES.find((h) => h.slug === value);
+  const [initialized, setInitialized] = useState(false);
 
   const [chats, setChats] = useState<
     { heroSlug: string; title: string; createdAt: number; id: string }[]
@@ -23,6 +24,7 @@ export default function ChatBotContainer({ userId }: ChatBotProp) {
 
   useEffect(() => {
     const fetchChats = async () => {
+      if (initialized) return;
       if (!hero) {
         setChats([]);
         setChatId("");
@@ -31,6 +33,7 @@ export default function ChatBotContainer({ userId }: ChatBotProp) {
       const chatsResult = await listChats(userId, hero.slug);
       if (chatsResult.length === 0) {
         await createNewChat();
+        setInitialized(true);
         return;
       }
       setChats(chatsResult);

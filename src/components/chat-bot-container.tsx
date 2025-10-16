@@ -7,6 +7,15 @@ import { HEROES } from "./hero-list";
 import { Button } from "./ui/button";
 import { createChat, listChats } from "@/lib/chat";
 import { ScrollArea } from "./ui/scroll-area";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
+import { PanelTopOpen } from "lucide-react";
 
 interface ChatBotProp {
   userId: string;
@@ -105,7 +114,48 @@ export default function ChatBotContainer({ userId }: ChatBotProp) {
                 <p className="text-sm text-muted-foreground">{hero.name}</p>
               </div>
             </div>
-            <section className="flex h-full flex-col  ">
+            <section className="flex h-full flex-col relative">
+              <div className="absolute top-4 right-4 z-50">
+                <Sheet>
+                  <SheetTrigger>
+                    <PanelTopOpen className="-rotate-90 " />
+                  </SheetTrigger>
+                  <SheetContent side="left">
+                    <SheetTitle></SheetTitle>
+                    <div className="border-r w-full py-8 mt-12 p-4">
+                      <Button
+                        className="w-full"
+                        variant={"outline"}
+                        onClick={createNewChat}
+                      >
+                        New Chat
+                      </Button>
+                      <div className="flex justify-center mt-4 pt-4 border-t">
+                        {chats.length == 0 ? (
+                          <div className="">
+                            <h1>No chats found</h1>
+                          </div>
+                        ) : (
+                          <ScrollArea className=" max-h-[calc(100vh-314px)]  flex flex-col w-full">
+                            {chats.map((c, index) => (
+                              <Button
+                                variant={"ghost"}
+                                className={`w-full text-left  justify-start ${
+                                  chatId === c.id && "bg-secondary"
+                                }`}
+                                key={index}
+                                onClick={() => setChatId(c.id)}
+                              >
+                                {c.title}
+                              </Button>
+                            ))}
+                          </ScrollArea>
+                        )}
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
               <ChatBot hero={hero} chatId={chatId} userId={userId} />
             </section>
           </div>

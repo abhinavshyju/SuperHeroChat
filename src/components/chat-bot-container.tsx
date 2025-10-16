@@ -31,6 +31,7 @@ export default function ChatBotContainer({ userId }: ChatBotProp) {
       const chatsResult = await listChats(userId, hero.slug);
       if (chatsResult.length === 0) {
         await createNewChat();
+        return;
       }
       setChats(chatsResult);
       setChatId(chatsResult[0].id);

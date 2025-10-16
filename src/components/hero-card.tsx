@@ -19,7 +19,7 @@ export function HeroCard({ hero, className }: HeroCardProps) {
   return (
     <Card className={cn("overflow-hidden ", className)}>
       <Link
-        href={`/hero/${hero.slug}`}
+        href={`/hero/chat?hero=${hero.slug}`}
         className="block "
         aria-label={`Open chat with ${hero.alias}`}
       >

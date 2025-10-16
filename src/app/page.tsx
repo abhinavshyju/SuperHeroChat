@@ -1,8 +1,8 @@
 import { HeroList } from "@/components/hero-list";
 import LoginButton from "@/components/login-button";
+import authOptions from "@/config/auth.config";
 import { Activity } from "lucide-react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

@@ -9,7 +9,6 @@ import {
 } from "./ui/dropdown-menu";
 import LogoutButton from "./logout-button";
 import Link from "next/link";
-import authOptions from "@/config/auth.config";
 import { auth } from "@/lib/auth";
 
 export default async function HeaderTail() {

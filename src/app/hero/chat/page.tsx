@@ -5,6 +5,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import authOptions from "@/config/auth.config";
 import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
 
 export default async function HeroChatPage() {
   const session = await getServerSession(authOptions);
@@ -15,6 +16,9 @@ export default async function HeroChatPage() {
     id: doc.id,
     ...doc.data(),
   }));
+  if (!user.id) {
+    return notFound();
+  }
   return (
     <main className="mx-auto px-4 py-8 md:h-[calc(100vh-65px)] overflow-y-hidden">
       <nav className="mb-4 flex">
